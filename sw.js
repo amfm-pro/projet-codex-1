@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v1";
+const CACHE_VERSION = "v2";
 const CACHE_NAME = `mini-liste-${CACHE_VERSION}`;
 const ASSETS_TO_CACHE = [
   "./",
@@ -6,6 +6,7 @@ const ASSETS_TO_CACHE = [
   "./style.css",
   "./app.js",
   "./manifest.webmanifest",
+  "./config.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
 ];

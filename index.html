@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -10,27 +10,58 @@
   </head>
   <body>
     <main class="container">
-      <header>
-        <h1>Mini Liste</h1>
-        <p>Ajoutez, recherchez et supprimez vos elements.</p>
+      <header class="app-header">
+        <div>
+          <h1>Mini Liste</h1>
+          <p>Synchronisation Supabase entre PC et Galaxy S7.</p>
+        </div>
+        <div id="user-panel" class="user-panel" hidden>
+          <span id="user-email" class="user-email"></span>
+          <button id="logout-btn" type="button" class="secondary-btn">Se deconnecter</button>
+        </div>
       </header>
 
-      <section class="controls">
-        <form id="add-form" autocomplete="off">
-          <label for="item-input" class="sr-only">Nouvel element</label>
-          <input id="item-input" type="text" placeholder="Nouvel element..." required />
-          <button type="submit">Ajouter</button>
+      <p id="status-message" class="status-message" aria-live="polite"></p>
+
+      <section id="auth-section" class="auth-grid">
+        <form id="login-form" class="auth-card" autocomplete="on">
+          <h2>Connexion</h2>
+          <label for="login-email">Email</label>
+          <input id="login-email" type="email" autocomplete="email" required />
+          <label for="login-password">Mot de passe</label>
+          <input id="login-password" type="password" autocomplete="current-password" required />
+          <button type="submit">Se connecter</button>
         </form>
 
-        <label for="search-input" class="sr-only">Rechercher</label>
-        <input id="search-input" type="text" placeholder="Rechercher..." />
+        <form id="signup-form" class="auth-card" autocomplete="on">
+          <h2>Creer un compte</h2>
+          <label for="signup-email">Email</label>
+          <input id="signup-email" type="email" autocomplete="email" required />
+          <label for="signup-password">Mot de passe</label>
+          <input id="signup-password" type="password" autocomplete="new-password" minlength="6" required />
+          <button type="submit">S'inscrire</button>
+        </form>
       </section>
 
-      <section>
-        <ul id="item-list" class="item-list" aria-live="polite"></ul>
+      <section id="app-section" hidden>
+        <section class="controls">
+          <form id="add-form" autocomplete="off">
+            <label for="item-input" class="sr-only">Nouvel element</label>
+            <input id="item-input" type="text" placeholder="Nouvel element..." required />
+            <button type="submit">Ajouter</button>
+          </form>
+
+          <label for="search-input" class="sr-only">Rechercher</label>
+          <input id="search-input" type="text" placeholder="Rechercher..." />
+        </section>
+
+        <section>
+          <ul id="item-list" class="item-list" aria-live="polite"></ul>
+        </section>
       </section>
     </main>
 
+    <script src="config.js"></script>
     <script src="app.js"></script>
     <script>
       if ("serviceWorker" in navigator) {

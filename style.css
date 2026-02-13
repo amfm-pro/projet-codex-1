@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #f4f6f8;
   --card: #ffffff;
   --text: #1f2933;
@@ -21,13 +21,20 @@ body {
 }
 
 .container {
-  max-width: 680px;
-  margin: 48px auto;
+  max-width: 760px;
+  margin: 40px auto;
   padding: 24px;
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+}
+
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
 }
 
 header h1 {
@@ -36,13 +43,61 @@ header h1 {
 }
 
 header p {
-  margin: 0 0 20px;
+  margin: 0;
+  color: var(--muted);
+}
+
+.user-panel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-email {
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+.status-message {
+  min-height: 24px;
+  margin: 14px 0 0;
+  color: #0f5132;
+}
+
+.status-error {
+  color: var(--danger);
+}
+
+.auth-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.auth-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  display: grid;
+  gap: 8px;
+  background: #fbfdff;
+}
+
+.auth-card h2 {
+  margin: 0 0 4px;
+  font-size: 1.1rem;
+}
+
+.auth-card label {
+  font-size: 0.9rem;
   color: var(--muted);
 }
 
 .controls {
   display: grid;
   gap: 12px;
+  margin-top: 20px;
   margin-bottom: 20px;
 }
 
@@ -77,6 +132,16 @@ button:hover {
   background: var(--accent-hover);
 }
 
+.secondary-btn {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.secondary-btn:hover {
+  background: #eef2f6;
+}
+
 .item-list {
   list-style: none;
   margin: 0;
@@ -96,6 +161,11 @@ button:hover {
   background: #fff;
 }
 
+.item-done .item-text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
 .item-text {
   overflow-wrap: anywhere;
 }
@@ -105,16 +175,14 @@ button:hover {
   gap: 8px;
 }
 
-.edit-btn,
-.cancel-edit-btn {
+.toggle-btn {
   background: transparent;
   color: var(--text);
   border-color: var(--border);
   padding: 6px 10px;
 }
 
-.edit-btn:hover,
-.cancel-edit-btn:hover {
+.toggle-btn:hover {
   background: #eef2f6;
 }
 
@@ -127,17 +195,6 @@ button:hover {
 
 .delete-btn:hover {
   background: #faeceb;
-}
-
-.edit-form {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 8px;
-}
-
-.edit-input {
-  min-width: 0;
 }
 
 .empty {
@@ -159,10 +216,18 @@ button:hover {
   border: 0;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .container {
     margin: 24px 12px;
     padding: 16px;
+  }
+
+  .app-header {
+    flex-direction: column;
+  }
+
+  .auth-grid {
+    grid-template-columns: 1fr;
   }
 
   .item {
@@ -170,9 +235,9 @@ button:hover {
     flex-direction: column;
   }
 
-  .item-actions,
-  .edit-form {
-    grid-template-columns: 1fr;
+  .item-actions {
     width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
   }
 }
