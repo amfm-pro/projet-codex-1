@@ -147,18 +147,35 @@ button:hover {
   margin: 0;
   padding: 0;
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 8px;
+  padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: #fff;
+}
+
+.item-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.item-checkbox {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--accent);
+  flex-shrink: 0;
 }
 
 .item-done .item-text {
@@ -168,29 +185,25 @@ button:hover {
 
 .item-text {
   overflow-wrap: anywhere;
+  line-height: 1.2;
+  font-size: 0.98rem;
 }
 
 .item-actions {
   display: flex;
-  gap: 8px;
-}
-
-.toggle-btn {
-  background: transparent;
-  color: var(--text);
-  border-color: var(--border);
-  padding: 6px 10px;
-}
-
-.toggle-btn:hover {
-  background: #eef2f6;
+  align-items: center;
 }
 
 .delete-btn {
-  background: transparent;
+  background: #fff;
   color: var(--danger);
   border-color: #efb2ad;
-  padding: 6px 10px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  line-height: 1;
 }
 
 .delete-btn:hover {
@@ -231,13 +244,6 @@ button:hover {
   }
 
   .item {
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .item-actions {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
+    padding: 8px;
   }
 }

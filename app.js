@@ -53,6 +53,7 @@ function bindEvents() {
   });
 
   itemList.addEventListener("click", onItemListClick);
+  itemList.addEventListener("change", onItemListChange);
 }
 
 async function restoreSession() {
@@ -236,29 +237,39 @@ async function onItemListClick(event) {
     return;
   }
 
-  if (target.matches(".toggle-btn")) {
-    const item = items.find((entry) => entry.id === id);
-    if (!item) return;
+}
 
-    const response = await restRequest(
-      `/items?id=eq.${encodeURIComponent(id)}`,
-      {
-        method: "PATCH",
-        body: JSON.stringify({ done: !item.done }),
-      },
-      true
-    );
+async function onItemListChange(event) {
+  const target = event.target;
+  if (!(target instanceof HTMLInputElement)) return;
+  if (!target.matches(".item-checkbox")) return;
 
-    if (response.error) {
-      showStatus(`Mise a jour impossible: ${response.error}`, true);
-      return;
-    }
+  const id = target.dataset.id;
+  if (!id || !currentUser) return;
 
-    items = items.map((entry) =>
-      entry.id === id ? { ...entry, done: !entry.done } : entry
-    );
-    renderItems();
+  const item = items.find((entry) => entry.id === id);
+  if (!item) return;
+
+  const nextDone = target.checked;
+  const response = await restRequest(
+    `/items?id=eq.${encodeURIComponent(id)}`,
+    {
+      method: "PATCH",
+      body: JSON.stringify({ done: nextDone }),
+    },
+    true
+  );
+
+  if (response.error) {
+    target.checked = item.done;
+    showStatus(`Mise a jour impossible: ${response.error}`, true);
+    return;
   }
+
+  items = items.map((entry) =>
+    entry.id === id ? { ...entry, done: nextDone } : entry
+  );
+  renderItems();
 }
 
 function getFilteredItems() {
@@ -279,16 +290,21 @@ function renderItems() {
     .map(
       (item) => `
       <li class="item ${item.done ? "item-done" : ""}">
-        <span class="item-text">${escapeHtml(item.text)}</span>
+        <label class="item-main" for="item-${item.id}">
+          <input
+            id="item-${item.id}"
+            class="item-checkbox"
+            type="checkbox"
+            data-id="${item.id}"
+            ${item.done ? "checked" : ""}
+            aria-label="Marquer ${escapeHtml(item.text)}"
+          />
+          <span class="item-text">${escapeHtml(item.text)}</span>
+        </label>
         <div class="item-actions">
-          <button class="toggle-btn" data-id="${item.id}" aria-label="Basculer l'etat de ${escapeHtml(
-        item.text
-      )}">
-            ${item.done ? "Marquer a faire" : "Marquer fait"}
-          </button>
           <button class="delete-btn" data-id="${item.id}" aria-label="Supprimer ${escapeHtml(
         item.text
-      )}">Supprimer</button>
+      )}">X</button>
         </div>
       </li>
     `
